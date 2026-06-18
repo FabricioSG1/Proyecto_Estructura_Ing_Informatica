@@ -102,7 +102,7 @@ new THREE.GLTFLoader();
 
 loader.load(
 
-  'Fuente Carrera.glb',
+  'Fuente Carrera 2.glb',
 
   function(gltf){
 
