@@ -1,189 +1,141 @@
-
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x1a1f36);
+scene.background = new THREE.Color(0x000000);
 
 const camera = new THREE.PerspectiveCamera(
-  75,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000
-);
+    75,
+    window.innerWidth / window.innerHeight,0.1,1000);
 
-camera.position.set(0, 12, 20);
+camera.position.set(0,12,20);
 
-
-// RENDERER
 const renderer = new THREE.WebGLRenderer({
-  antialias: true
+    antialias:true
 });
 
-renderer.setSize(
-  window.innerWidth,
-  window.innerHeight
-);
+renderer.setSize(window.innerWidth,window.innerHeight);
+renderer.shadowMap.enabled=true;
+renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+document.body.appendChild(renderer.domElement);
 
-// CONTROLES DE CAMARA
-const controls = new THREE.OrbitControls(
+const controls=new THREE.OrbitControls(
     camera,
     renderer.domElement
 );
 
-controls.enableDamping = true;
-controls.dampingFactor = 0.05;
+controls.enableDamping=true;
+controls.dampingFactor=0.05;
+controls.minDistance=5;
+controls.maxDistance=100;
 
-controls.minDistance = 5;
-controls.maxDistance = 100;
-
-document.body.appendChild(
-  renderer.domElement
-);
-
-const ambientLight = new THREE.AmbientLight(
-  0xfff0,
-  1
-);
-
+const ambientLight=new THREE.AmbientLight(0x4a5d7f,0.15);
 scene.add(ambientLight);
-const directionalLight =
-new THREE.DirectionalLight(
-  0xffff,
-  2
-);
 
-directionalLight.position.set(
-  10,
-  10,
-  10
-);
+const directionalLight=new THREE.DirectionalLight(0xbfdcff,0.9);
+
+directionalLight.position.set(20,7,7);
+directionalLight.castShadow=true;
+directionalLight.shadow.mapSize.width=2048;
+directionalLight.shadow.mapSize.height=2048;
 
 scene.add(directionalLight);
 
-const axesHelper =
-new THREE.AxesHelper(5);
+const fillLight=new THREE.DirectionalLight(0x3344aa,-1);
+fillLight.position.set(-15,10,-10);
+scene.add(fillLight);
 
-scene.add(axesHelper);
-const floorGeometry =
-new THREE.PlaneGeometry(
-  50,
-  50
+const pointLight=new THREE.PointLight(0xffffff,4,50);
+pointLight.position.set(14,9,0);
+pointLight.castShadow=true;
+
+scene.add(pointLight);
+
+const foco=new THREE.Mesh(
+    new THREE.SphereGeometry(0.25,32,32),
+    new THREE.MeshPhongMaterial({
+        color:0xffffff,
+        emissive:0xffffff,
+        emissiveIntensity:5
+    })
 );
+foco.position.copy(pointLight.position);
+scene.add(foco);
 
-const floorMaterial =
-new THREE.MeshLambertMaterial({
-  color: 0x90EE90
+
+const axesHelper=new THREE.AxesHelper(5);
+scene.add(axesHelper);
+
+const floorGeometry=new THREE.PlaneGeometry(50,50);
+
+const floorMaterial=new THREE.MeshLambertMaterial({
+    color:0x1b2d1
 });
 
-const floor =
-new THREE.Mesh(
-  floorGeometry,
-  floorMaterial
+const floor=new THREE.Mesh(
+    floorGeometry,
+    floorMaterial
 );
 
-floor.rotation.x =
--Math.PI / 2;
+floor.rotation.x=-Math.PI/2;
+floor.receiveShadow=true;
 
 scene.add(floor);
-const cube =
-new THREE.Mesh(
-  new THREE.BoxGeometry(
-    1,
-    1,
-    1
-  ),
-  new THREE.MeshNormalMaterial()
-);
 
-cube.position.y = 1;
-
-scene.add(cube);
-
-const loader =
-new THREE.GLTFLoader();
+const loader=new THREE.GLTFLoader();
 
 loader.load(
 
-  'Fuente Carrera 2.glb',
+    "Fuente Carrera.glb",
 
-  function(gltf){
+    function(gltf){
 
-    const modelo =
-    gltf.scene;
+        const modelo=gltf.scene;
+        modelo.position.set(0,0,0);
+        modelo.scale.set(1,1,1);
+        modelo.traverse(function(child){
+    if(child.isMesh){
+        child.material=new THREE.MeshPhongMaterial({
+            color:child.material.color,shininess:40,specular:0x777777
+        });
 
-    modelo.position.set(
-      0,
-      0,
-      0
-    );
+        child.castShadow=true;
+        child.receiveShadow=true;
+    }
+});
+        scene.add(modelo);
 
-    modelo.scale.set(
-      1,
-      1,
-      1
-    );
+    },
 
-    scene.add(modelo);
+    function(xhr){
 
-    console.log(
-      "MODELO CARGADO"
-    );
+        console.log((xhr.loaded/xhr.total*100).toFixed(0)+"% cargado");
 
-    console.log(
-      modelo
-    );
+    },
 
-  },
+    function(error){
 
-  function(xhr){
+        console.error(error);
 
-    console.log(
-      (xhr.loaded / xhr.total * 100)
-      + '% cargado'
-    );
-
-  },
-
-  function(error){
-
-    console.error(
-      'ERROR:',
-      error
-    );
-
-  }
+    }
 
 );
+
 function animate(){
 
-  requestAnimationFrame(
-    animate
-  );
-  controls.update();
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
+    requestAnimationFrame(animate);
 
-  renderer.render(
-    scene,
-    camera
-  );
+    controls.update();
+
+    renderer.render(scene,camera);
 
 }
 
 animate();
 
-window.addEventListener(
-  'resize',
-  () => {
+window.addEventListener("resize",()=>{
 
-    camera.aspect =
-    window.innerWidth /
-    window.innerHeight;
+    camera.aspect=window.innerWidth/window.innerHeight;
 
     camera.updateProjectionMatrix();
 
-    renderer.setSize(
-      window.innerWidth,
-      window.innerHeight
-    );
+    renderer.setSize(window.innerWidth,window.innerHeight);
 
-  }
-);
+});
