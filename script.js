@@ -11,6 +11,7 @@ const camera = new THREE.PerspectiveCamera(
 
 camera.position.set(0, 12, 20);
 
+
 // RENDERER
 const renderer = new THREE.WebGLRenderer({
   antialias: true
@@ -20,6 +21,18 @@ renderer.setSize(
   window.innerWidth,
   window.innerHeight
 );
+
+// CONTROLES DE CAMARA
+const controls = new THREE.OrbitControls(
+    camera,
+    renderer.domElement
+);
+
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
+
+controls.minDistance = 5;
+controls.maxDistance = 100;
 
 document.body.appendChild(
   renderer.domElement
@@ -144,7 +157,7 @@ function animate(){
   requestAnimationFrame(
     animate
   );
-
+  controls.update();
   cube.rotation.x += 0.01;
   cube.rotation.y += 0.01;
 
