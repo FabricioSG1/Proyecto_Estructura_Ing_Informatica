@@ -1,11 +1,11 @@
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x000000);
+scene.background = new THREE.Color(0x87CEEB);
 
 const camera = new THREE.PerspectiveCamera(
-    75,
+    90,
     window.innerWidth / window.innerHeight,0.1,1000);
 
-camera.position.set(0,12,20);
+camera.position.set(0,80,220);
 
 const renderer = new THREE.WebGLRenderer({
     antialias:true
@@ -26,34 +26,34 @@ controls.dampingFactor=0.05;
 controls.minDistance=5;
 controls.maxDistance=100;
 
-const ambientLight=new THREE.AmbientLight(0x4a5d7f,0.15);
+const ambientLight=new THREE.AmbientLight(0x4a5d7f,1.5);
 scene.add(ambientLight);
 
 const directionalLight=new THREE.DirectionalLight(0xbfdcff,0.9);
 
-directionalLight.position.set(20,7,7);
+directionalLight.position.set(0,0,0);
 directionalLight.castShadow=true;
 directionalLight.shadow.mapSize.width=2048;
 directionalLight.shadow.mapSize.height=2048;
 
 scene.add(directionalLight);
 
-const fillLight=new THREE.DirectionalLight(0x3344aa,-1);
-fillLight.position.set(-15,10,-10);
+const fillLight=new THREE.DirectionalLight(0x3344aa,0);
+fillLight.position.set(0,0,0);
 scene.add(fillLight);
 
-const pointLight=new THREE.PointLight(0xffffff,4,50);
-pointLight.position.set(14,9,0);
+const pointLight=new THREE.PointLight(0xffffff,4,300);
+pointLight.position.set(0,100,250);
 pointLight.castShadow=true;
 
 scene.add(pointLight);
 
 const foco=new THREE.Mesh(
-    new THREE.SphereGeometry(0.25,32,32),
+    new THREE.SphereGeometry(30,15,32),
     new THREE.MeshPhongMaterial({
         color:0xffffff,
         emissive:0xffffff,
-        emissiveIntensity:5
+        emissiveIntensity:100
     })
 );
 foco.position.copy(pointLight.position);
@@ -66,18 +66,7 @@ scene.add(axesHelper);
 const floorGeometry=new THREE.PlaneGeometry(50,50);
 
 const floorMaterial=new THREE.MeshLambertMaterial({
-    color:0x1b2d1
-});
-
-const floor=new THREE.Mesh(
-    floorGeometry,
-    floorMaterial
-);
-
-floor.rotation.x=-Math.PI/2;
-floor.receiveShadow=true;
-
-scene.add(floor);
+    color:0x1b2d1});
 
 const loader=new THREE.GLTFLoader();
 
@@ -88,7 +77,7 @@ loader.load(
     function(gltf){
 
         const modelo=gltf.scene;
-        modelo.position.set(0,0,0);
+        modelo.position.set(220,-19,60);
         modelo.scale.set(1,1,1);
         modelo.traverse(function(child){
     if(child.isMesh){
@@ -122,11 +111,36 @@ function animate(){
 
     requestAnimationFrame(animate);
 
-    controls.update();
+    angulo += velocidad;
 
-    renderer.render(scene,camera);
+    camera.position.x =
+        centroX + Math.cos(angulo) * radio;
+
+    camera.position.z =
+        centroZ + Math.sin(angulo) * radio;
+
+    camera.lookAt(
+        centroX,
+        centroY,
+        centroZ
+    );
+
+    renderer.render(
+        scene,
+        camera
+    );
 
 }
+
+let angulo = 0;
+
+const centroX = 0;
+const centroY = 50;
+const centroZ = 10;
+
+const radio = 250;
+
+const velocidad = 0.003;
 
 animate();
 
