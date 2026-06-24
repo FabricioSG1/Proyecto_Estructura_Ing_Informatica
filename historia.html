@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Historia - Ingeniería Informática UNSXX</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:#0f172a;
+    color:white;
+    line-height:1.8;
+}
+
+.escudo-izq,
+.escudo-der{
+    z-index:1000;
+}
+
+.escudo-izq{
+    left:20px;
+}
+
+.escudo-der{
+    right:20px;
+}
+
+header{
+    height:300px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    background:linear-gradient(
+        135deg,
+        #0f172a,
+        #1e3a8a
+    );
+
+    position:relative;
+}
+
+.escudo-izq{
+    position:absolute;
+
+    top:25px;
+    left:30px;
+
+    width:90px;
+    height:auto;
+}
+
+.escudo-der{
+    position:absolute;
+
+    top:25px;
+    right:30px;
+
+    width:190px;
+    height:auto;
+}
+
+header h1{
+    font-size:3.5rem;
+}
+
+header p{
+    color:#cbd5e1;
+    font-size:1.2rem;
+}
+
+.contenedor{
+    width:90%;
+    max-width:1100px;
+    margin:auto;
+    padding:60px 0;
+}
+
+.tarjeta{
+    background:#1e293b;
+
+    padding:40px;
+
+    border-radius:20px;
+
+    box-shadow:0 0 25px rgba(0,0,0,.3);
+}
+
+.tarjeta h2{
+    color:#38bdf8;
+    margin-bottom:20px;
+}
+
+.tarjeta p{
+    margin-bottom:20px;
+    text-align:justify;
+}
+
+.boton{
+    display:inline-block;
+
+    margin-top:30px;
+
+    text-decoration:none;
+
+    color:white;
+
+    background:#38bdf8;
+
+    padding:15px 30px;
+
+    border-radius:12px;
+
+    transition:.3s;
+}
+
+.boton:hover{
+    transform:translateY(-3px);
+    background:#0ea5e9;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<img src="imagenes/escudo_unsxx.png" class="escudo-izq">
+
+<img src="imagenes/escudo_informatica.png" class="escudo-der">
+
+<header>
+
+    <h1>Historia</h1>
+
+    <p>Carrera de Ingeniería Informática - UNSXX</p>
+
+</header>
+
+<div class="contenedor">
+
+    <div class="tarjeta">
+
+        <h2>Origen y Desarrollo</h2>
+
+        <p>
+        La Carrera de Ingeniería Informática de la Universidad Nacional Siglo XX surge como respuesta a la creciente necesidad de formar profesionales capaces de afrontar los desafíos tecnológicos de la sociedad moderna. A lo largo de los años, la carrera ha fortalecido su formación académica incorporando conocimientos en programación, bases de datos, redes de computadoras, inteligencia artificial, seguridad informática y desarrollo de software.
+        </p>
+
+        <p>
+        Su propuesta académica busca combinar la formación científica con la aplicación práctica de la tecnología, permitiendo que los estudiantes participen en proyectos, investigaciones y actividades orientadas a la solución de problemas reales mediante herramientas informáticas.
+        </p>
+
+        <p>
+        La carrera forma profesionales con capacidad de innovar, desarrollar sistemas informáticos, administrar infraestructuras tecnológicas y liderar proyectos relacionados con las ciencias de la computación, contribuyendo al desarrollo tecnológico y social de Bolivia.
+        </p>
+
+        <p>
+        Gracias al trabajo de docentes, estudiantes y autoridades universitarias, la Carrera de Ingeniería Informática de la UNSXX ha consolidado su calidad académica, obteniendo procesos de acreditación y reconocimiento dentro del sistema universitario boliviano.
+        </p>
+
+        <a href="index.html" class="boton">
+            Volver al Menú
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

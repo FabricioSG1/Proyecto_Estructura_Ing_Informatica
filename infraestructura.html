@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Infraestructura - Ingeniería Informática UNSXX</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:#0f172a;
+    color:white;
+}
+
+header{
+    height:300px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    background:linear-gradient(
+        135deg,
+        #0f172a,
+        #1e3a8a
+    );
+
+    position:relative;
+}
+
+.escudo-izq{
+    position:absolute;
+    top:25px;
+    left:30px;
+    width:100px;
+}
+
+.escudo-der{
+    position:absolute;
+    top:25px;
+    right:30px;
+    width:100px;
+}
+
+header h1{
+    font-size:3.5rem;
+}
+
+header p{
+    color:#cbd5e1;
+}
+
+.contenedor{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+    padding:50px 0;
+}
+
+.tarjeta{
+    background:#1e293b;
+    padding:40px;
+    border-radius:20px;
+    margin-bottom:40px;
+}
+
+.tarjeta h2{
+    color:#38bdf8;
+    margin-bottom:20px;
+}
+
+.tarjeta p{
+    text-align:justify;
+    line-height:1.8;
+}
+
+.visor{
+    width:100%;
+    height:700px;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 0 25px rgba(0,0,0,.4);
+}
+
+.visor iframe{
+    width:100%;
+    height:100%;
+    border:none;
+}
+
+.boton{
+    display:inline-block;
+
+    margin-top:30px;
+
+    text-decoration:none;
+
+    color:white;
+
+    background:#38bdf8;
+
+    padding:15px 30px;
+
+    border-radius:12px;
+
+    transition:.3s;
+}
+
+.boton:hover{
+    background:#0ea5e9;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<img src="imagenes/escudo_unsxx.png" class="escudo-izq">
+
+<img src="imagenes/escudo_informatica.png" class="escudo-der">
+
+<h1>Infraestructura</h1>
+
+<p>Carrera de Ingeniería Informática - UNSXX</p>
+
+</header>
+
+<div class="contenedor">
+
+<div class="tarjeta">
+
+<h2>Modelo Tridimensional</h2>
+
+<p>
+La siguiente representación tridimensional muestra la infraestructura de la Carrera de Ingeniería Informática de la Universidad Nacional Siglo XX. El modelo fue desarrollado en Blender y posteriormente integrado a una aplicación web mediante Three.js, permitiendo una visualización interactiva del edificio desde diferentes perspectivas.
+</p>
+
+<p>
+El usuario puede explorar libremente la estructura utilizando el mouse para rotar, acercar y alejar la cámara, observando con detalle los distintos elementos arquitectónicos del modelo.
+</p>
+
+</div>
+
+<div class="visor">
+
+<iframe src="modelo.html"></iframe>
+
+</div>
+
+<a href="index.html" class="boton">
+Volver al Menú
+</a>
+
+</div>
+</body>
+</html>
